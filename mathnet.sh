@@ -1,9 +1,7 @@
-#!/usr/bin
+#!/bin/bash
 
-#todo alias this script
-#todo give this script correct chmod
-#todo save files in Dropbox
 #todo create help somehow
+#todo _MAYBE_ add the option to choose target folder
 
 if [ $# -eq 0 ]; then
 	echo "Please enter the course number:"
