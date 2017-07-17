@@ -69,16 +69,17 @@ for COURSE in "$@"; do
 	rm tirgul.html
 	rm tirgul.temp
 
+	FILES=(hw.csv hachana.csv tirgul.csv)
+
 	# remove one extra line above and one below
-	# to be fixed, doesn't work on Mac:
-
-	# tail -n +2 hw.csv > hw.csv 
-	# tail -n +2 hachana.csv > hachana.csv
-	# tail -n +2 tirgul.csv > tirgul.csv
-
-	# also remove last line from each file:
-	# ...
-
+	#todo make sure this works fine on Linux (if not, just create temo files and delete them , and lose the -i flag and the weird extension)
+	for FILE in ${FILES[@]}; do
+		sed -i '.zuave' -n '2,$ p' "$FILE"
+		sed -i '.zuave' '$ d' "$FILE"
+	done
+	rm *.zuave
+	
+	# move files to course folder
 	mkdir $COURSE
 	mv hw.csv $COURSE
 	mv hachana.csv $COURSE
