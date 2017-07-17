@@ -1,8 +1,9 @@
 #!/usr/bin
 
-# todo: alias this script
-# todo: give this script correct chmod
-# todo: save files in Dropbox
+#todo alias this script
+#todo give this script correct chmod
+#todo save files in Dropbox
+#todo create help somehow
 
 if [ $# -eq 0 ]; then
 	echo "Please enter the course number:"
