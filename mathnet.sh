@@ -1,6 +1,5 @@
 #!/usr/bin
 
-# todo: identify semester from current date
 # todo: alias this script
 # todo: give this script correct chmod
 # todo: save files in Dropbox
@@ -16,11 +15,23 @@ read USER
 echo "Please enter your MATHNET administrator password:"
 read -s PASSWD  # -s is there so the characters you type don't show up
 
+# determine the current semester
+YEAR=`date '+%y'`
+MONTH=`date '+%m'`
+CODE=$(($YEAR-1))$YEAR
+
+if [ "$MONTH" -gt 5 ]; then
+	SEMESTER="$CODE"b
+else
+	SEMESTER="$CODE"a
+fi
+
+
 for COURSE in "$@"; do
-	URL="https://mathnet.technion.ac.il/M/mathnet?action=login&course=${COURSE}_1617b"
+	URL="https://mathnet.technion.ac.il/M/mathnet?action=login&course=${COURSE}_$SEMESTER"
 
 	curl --silent --location -cookie "$COOKIE" --cookie-jar "$COOKIE" \
-		--data "action=login" --data "course=104033_1617b" --data "login=$USER" --data "password=${PASSWD}" "$URL" --data "Submit.x=34" "Submit.y=19" > temp.html
+		--data "action=login" --data "course=104033_$SEMESTER" --data "login=$USER" --data "password=${PASSWD}" "$URL" --data "Submit.x=34" "Submit.y=19" > temp.html
 
 	sed -n "s/.*mathnetsessionid=\([a-z]*\).*/\1/p" <temp.html >temp2.txt # this grabs the mathnetsessionsid
 
