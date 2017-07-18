@@ -2,6 +2,8 @@
 
 #todo create help somehow
 #todo _MAYBE_ add the option to choose target folder
+#todo Fix the case where no arguments have been givem
+#todo consider <TAB> completion somehow
 
 if [ $# -eq 0 ]; then
 	echo "Please enter the course number:"
@@ -74,8 +76,8 @@ for COURSE in "$@"; do
 	# remove one extra line above and one below
 	#todo make sure this works fine on Linux (if not, just create temo files and delete them , and lose the -i flag and the weird extension)
 	for FILE in ${FILES[@]}; do
-		sed -i '.zuave' -n '2,$ p' "$FILE"
-		sed -i '.zuave' '$ d' "$FILE"
+		sed -n '2,$ p' < "$FILE" > "$FILE.zuave"
+		sed '$ d' < "$FILE.zuave" > "$FILE"
 	done
 	rm *.zuave
 	
