@@ -22,7 +22,11 @@ MONTH=`date '+%m'`
 CODE=$(($YEAR-1))$YEAR
 
 if [ "$MONTH" -gt 5 ]; then
-	SEMESTER="$CODE"b
+	if [ "$MONTH" -lt 9 ]; then
+		SEMESTER="$CODE"b
+	else
+		SEMESTER="$CODE"c
+	fi
 else
 	SEMESTER="$CODE"a
 fi
