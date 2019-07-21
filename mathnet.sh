@@ -1,10 +1,5 @@
 #!/bin/bash
 
-#todo create help somehow
-#todo _MAYBE_ add the option to choose target folder
-#todo Fix the case where no arguments have been givem
-#todo consider <TAB> completion somehow
-
 if [ $# -eq 0 ]; then
 	echo "Please enter the course number:"
 	read COURSE
@@ -24,11 +19,14 @@ CODE=$(($YEAR-1))$YEAR
 if [ "$MONTH" -gt 5 ]; then
 	if [ "$MONTH" -lt 9 ]; then
 		SEMESTER="$CODE"b
+		echo "Accessing the spring semester."
 	else
 		SEMESTER="$CODE"c
+		echo "Accessing the summer semester."
 	fi
 else
 	SEMESTER="$CODE"a
+	echo "Accessing the winter semester."
 fi
 
 
@@ -78,7 +76,6 @@ for COURSE in "$@"; do
 	FILES=(hw.csv hachana.csv tirgul.csv)
 
 	# remove one extra line above and one below
-	#todo make sure this works fine on Linux (if not, just create temo files and delete them , and lose the -i flag and the weird extension)
 	for FILE in ${FILES[@]}; do
 		sed -n '2,$ p' < "$FILE" > "$FILE.zuave"
 		sed '$ d' < "$FILE.zuave" > "$FILE"
@@ -91,3 +88,4 @@ for COURSE in "$@"; do
 	mv hachana.csv $COURSE
 	mv tirgul.csv $COURSE
 done
+echo "Grade files downloaded for all courses. If they are not correct, please make sure that your *admin* username and password are correct, and that the right semester was automatically chosen."
